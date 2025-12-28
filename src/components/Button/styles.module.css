@@ -1,0 +1,39 @@
+.button {
+        border-radius: 29px;
+        cursor: pointer;
+        transition: border-color 0.25s;
+        font-family: inherit;
+        font-size: 16px;
+        border: none;
+        color: var(--white-color);
+        transition: background 0.25ms;
+}
+
+.accent {
+        background: var(--primary-color);
+}
+
+.accent:hover {
+        background-color: var(--primary-hover-color);
+}
+
+.small {
+        height: 43px;
+        font-weight: 400;
+        padding: 10px 25px;
+}
+
+.big {
+        padding: 20px 60px;
+        height: 60px;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 600;
+}
+
+.exit {
+        padding-left: 45px;
+        background-position: 10px center;
+        background-image: url(./exit.svg);
+        background-repeat: no-repeat;
+}

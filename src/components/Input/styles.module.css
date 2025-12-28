@@ -1,0 +1,22 @@
+.input {
+        padding: 0 15px;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        font-size: 16px;
+        color: var(--input-text-color);
+}
+
+.regular {
+        width: 324px;
+        height: 65px;
+}
+
+.promo {
+        width: 517px;
+        height: 60px;
+}
+
+.invalid {
+        border: 1px solid red;
+        background-color: rgb(148, 32, 32);
+}

@@ -1,0 +1,5 @@
+.label {
+        display: block;
+        font-size: 17px;
+        color: var(--input-text-color);
+}

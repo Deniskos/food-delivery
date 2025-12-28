@@ -1,0 +1,31 @@
+:root {
+        --font: "Open Sans", sans-serif;
+        --primary-color: #fe724c;
+        --primary-hover-color: #df6442;
+        --text-color: #000;
+        --text-secondary-color: #5b5b5e;
+        --text-light-color: #9ea1b1;
+        --input-text-color: #c4c4c4;
+        --white-color: #fff;
+        --separator-color: #d4d6e0;
+}
+
+body {
+        height: 100vh;
+        font-family: "Open Sans", sans-serif;
+}
+
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+
+img {
+        width: 100%;
+        max-width: 100%;
+}
+
+a {
+        text-decoration: none;
+}
