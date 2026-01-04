@@ -1,23 +1,31 @@
-import { Link, Outlet } from 'react-router-dom';
+import {  NavLink, Outlet } from 'react-router-dom';
+import { type ReactNode } from 'react';
 
-import styles from './styles.module.css';
 import cn from 'classnames';
+import styles from './styles.module.css';
 import Button from '../../components/Button/Button';
-import type { ReactNode } from 'react';
+
 
 export function Layout(): ReactNode {
+
 	return (
-		<div className={styles.root}>			
+		<div className={styles.layout}>			
 			<div className={styles.sidebar}>				
 				<div className={styles.sidebarTop}>
 					<div className={styles.profile}>
-						<div className={styles.avatar}></div>
+						<div className={styles.avatar}>
+							<img src='./ava.png' alt='Аватар пользователя' />
+						</div>
 						<div className={styles.name}>Денис Кострыгин</div>
 						<div className={styles.email}>kostryginden@mail.ru</div>
 					</div>
 					<div className={styles.navigation}>
-						<Link className={cn(styles.link, styles.menuLink)} to='/'>Меню</Link>
-						<Link className={cn(styles.link, styles.cartLink)} to='/cart'>Корзина<span className={styles.cartCount}>2</span></Link>
+						<NavLink className={({isActive}) => cn(styles.link, styles.menuLink, {
+							[styles.active]: isActive
+						})} to='/'>Меню</NavLink>
+						<NavLink className={({isActive}) => cn(styles.link, styles.cartLink, {
+							[styles.active]: isActive
+						})} to='/cart'>Корзина<span className={styles.cartCount}>2</span></NavLink>
 					</div>
 				</div>	
 				<div className={styles.sidebarBottom}>
