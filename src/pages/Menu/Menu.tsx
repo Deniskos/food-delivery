@@ -18,17 +18,6 @@ export function Menu() {
                         console.error(e);
                         return;
                 }
-                // try {
-                //         const res = await fetch(`${PREFIX}/pro ducts`)
-                //         if (!res.ok) {
-                //                 return
-                //         }
-                //         const data = (await res.json()) as Product[]
-                //         setProducts(data)
-                // } catch (e) {
-                //         console.error(e)
-                //         return
-                // }
         };
 
         useEffect(() => {
@@ -41,17 +30,19 @@ export function Menu() {
                                 <Title>Меню</Title>
                                 <Search placeholder='Введите блюдо или состав' />
                         </div>
-                        {products.map(product => (
-                                <ProductCard
-                                        key={product.id}
-                                        id={product.id}
-                                        title={product.name}
-                                        description={product.ingredients.join(', ')}
-                                        image={product.image}
-                                        price={product.price}
-                                        rating={product.rating}
-                                />
-                        ))}
+                        <div className={styles['products']}>
+                                {products.map(product => (
+                                        <ProductCard
+                                                key={product.id}
+                                                id={product.id}
+                                                title={product.name}
+                                                description={product.ingredients.join(', ')}
+                                                image={product.image}
+                                                price={product.price}
+                                                rating={product.rating}
+                                        />
+                                ))}
+                        </div>
                 </>
         );
 }

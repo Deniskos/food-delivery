@@ -1,8 +1,6 @@
 .card {
-        display: block;
         position: relative;
-        max-width: 400px;
-        padding-bottom: 20px;
+        flex: 0 0 calc(50% - 20px); /* 50% минус половина gap */
         opacity: 1;
         border-radius: 18px;
         background-color: var(--white-color);
@@ -50,8 +48,8 @@
 
 .rating {
         position: absolute;
-        top: 190px;
-        left: 15px;
+        top: -35px;
+        left: 10px;
         width: 51px;
         height: 29px;
         display: flex;
@@ -91,6 +89,12 @@
 }
 
 .dish-img-wrapper {
+        display: flex;
         border-radius: 18px;
         overflow: hidden;
+}
+
+.text-wrapper {
+        position: relative;
+        padding: 0 10px 20px;
 }
