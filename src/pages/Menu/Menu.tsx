@@ -1,17 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import ProductCard from '../../components/ProductCard/ProductCard';
 import Search from '../../components/Search/Search';
 import Title from '../../components/Title/Title';
 import { PREFIX } from '../../helpers/API';
-import type { Product } from '../../product.interface';
+import type { Product } from '../../interfaces/product.interface';
+import { MenuLIst } from './MenuList/MenuList';
 import styles from './styles.module.css';
 
 export function Menu() {
         const [products, setProducts] = useState<Product[]>([]);
         const [isLoading, setIsLoading] = useState<boolean>(false);
-
-        console.log('isLoading', isLoading);
+        const [error, setError] = useState<string | undefined>(undefined);
 
         const getMenu = async () => {
                 try {
@@ -27,6 +26,9 @@ export function Menu() {
                 } catch (e) {
                         console.error(e);
                         setIsLoading(false);
+                        if (axios.isAxiosError(e)) {
+                                setError(e.message);
+                        }
                         return;
                 }
         };
@@ -42,19 +44,9 @@ export function Menu() {
                                 <Search placeholder='Введите блюдо или состав' />
                         </div>
                         <div className={styles['products']}>
+                                {error && error}
                                 {isLoading && 'Загрузка меню...'}
-                                {!isLoading &&
-                                        products.map(product => (
-                                                <ProductCard
-                                                        key={product.id}
-                                                        id={product.id}
-                                                        title={product.name}
-                                                        description={product.ingredients.join(', ')}
-                                                        image={product.image}
-                                                        price={product.price}
-                                                        rating={product.rating}
-                                                />
-                                        ))}
+                                {!isLoading && <MenuLIst products={products} />}
                         </div>
                 </>
         );
