@@ -1,31 +1,39 @@
-import { useEffect, useState } from 'react'
-import ProductCard from '../../components/ProductCard/ProductCard'
-import Search from '../../components/Search/Search'
-import Title from '../../components/Title/Title'
-import { PREFIX } from '../../helpers/API'
-import type { Product } from '../../product.interface'
-import styles from './styles.module.css'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import Search from '../../components/Search/Search';
+import Title from '../../components/Title/Title';
+import { PREFIX } from '../../helpers/API';
+import type { Product } from '../../product.interface';
+import styles from './styles.module.css';
 
 export function Menu() {
-        const [products, setProducts] = useState<Product[]>([])
+        const [products, setProducts] = useState<Product[]>([]);
 
         const getMenu = async () => {
                 try {
-                        const res = await fetch(`${PREFIX}/products`)
-                        if (!res.ok) {
-                                return
-                        }
-                        const data = (await res.json()) as Product[]
-                        setProducts(data)
+                        const { data } = await axios.get<Product[]>(`${PREFIX}/products`);
+                        setProducts(data);
                 } catch (e) {
-                        console.error(e)
-                        return
+                        console.error(e);
+                        return;
                 }
-        }
+                // try {
+                //         const res = await fetch(`${PREFIX}/pro ducts`)
+                //         if (!res.ok) {
+                //                 return
+                //         }
+                //         const data = (await res.json()) as Product[]
+                //         setProducts(data)
+                // } catch (e) {
+                //         console.error(e)
+                //         return
+                // }
+        };
 
         useEffect(() => {
-                getMenu()
-        }, [])
+                getMenu();
+        }, []);
 
         return (
                 <>
@@ -45,5 +53,5 @@ export function Menu() {
                                 />
                         ))}
                 </>
-        )
+        );
 }
