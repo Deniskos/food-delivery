@@ -7,7 +7,7 @@ import type { Product } from '../../interfaces/product.interface';
 import { MenuLIst } from './MenuList/MenuList';
 import styles from './styles.module.css';
 
-export function Menu() {
+function Menu() {
         const [products, setProducts] = useState<Product[]>([]);
         const [isLoading, setIsLoading] = useState<boolean>(false);
         const [error, setError] = useState<string | undefined>(undefined);
@@ -15,11 +15,11 @@ export function Menu() {
         const getMenu = async () => {
                 try {
                         setIsLoading(true);
-                        await new Promise<void>(resolve => {
-                                setTimeout(() => {
-                                        resolve();
-                                }, 2000);
-                        });
+                        // await new Promise<void>(resolve => {
+                        //         setTimeout(() => {
+                        //                 resolve();
+                        //         }, 2000);
+                        // });
                         const { data } = await axios.get<Product[]>(`${PREFIX}/products`);
                         setProducts(data);
                         setIsLoading(false);
@@ -51,3 +51,5 @@ export function Menu() {
                 </>
         );
 }
+
+export default Menu;

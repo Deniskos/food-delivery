@@ -1,6 +1,5 @@
 import type { LabelHTMLAttributes } from 'react';
 
-export interface InputProps extends LabelHTMLAttributes<HTMLLabelElement> {
-        isValid: boolean;
-	kind: string;
+export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
+        children: string;
 }
