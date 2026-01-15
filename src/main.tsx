@@ -5,18 +5,25 @@ import { PREFIX } from './helpers/API.ts';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import type { Product as ProductType } from './interfaces/product.interface.ts';
+import { RequiredAuth } from './helpers/RequiredAuth.tsx';
+import { AuthLayout } from './layout/Auth/AuthLayout.tsx';
 import { Layout } from './layout/Menu/Layout.tsx';
 import { Cart } from './pages/Cart/Cart';
 import { Error } from './pages/Error/Error';
+import { Login } from './pages/Login/Login.tsx';
 import { Product } from './pages/Product/Product.tsx';
+import { Register } from './pages/Register/Register.tsx';
 
 const Menu = lazy(() => import('./pages/Menu/Menu'));
 
 const router = createBrowserRouter([
         {
                 path: '/',
-                element: <Layout />,
+                element: (
+                        <RequiredAuth>
+                                <Layout />
+                        </RequiredAuth>
+                ),
                 children: [
                         {
                                 path: '/',
@@ -32,23 +39,36 @@ const router = createBrowserRouter([
                         },
                         {
                                 path: '/product/:id',
-                                element: <Product />,
+                                element: (
+                                        <Suspense fallback={<>Загрузка...</>}>
+                                                <Product />
+                                        </Suspense>
+                                ),
                                 errorElement: <>Ошибка</>,
                                 loader: async ({ params }) => {
-                                        await new Promise<void>(resolve => {
-                                                setTimeout(() => {
-                                                        resolve();
-                                                }, 2000);
-                                        });
-                                        const { data } = await axios.get<ProductType>(
+                                        const response = await axios.get(
                                                 `${PREFIX}/products/${params.id}`
                                         );
-                                        return data;
+                                        return { product: response.data };
                                 },
                         },
                         {
                                 path: '*',
                                 element: <Error />,
+                        },
+                ],
+        },
+        {
+                path: '/auth',
+                element: <AuthLayout />,
+                children: [
+                        {
+                                path: 'login',
+                                element: <Login />,
+                        },
+                        {
+                                path: 'register',
+                                element: <Register />,
                         },
                 ],
         },

@@ -1,0 +1,27 @@
+.layout {
+        height: 100vh;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1024px;
+        min-width: 768px;
+        display: flex;
+        flex-direction: row;
+        background-color: var(--white-color);
+}
+
+.logo {
+        display: flex;
+        flex: 1;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid var(--separator-color);
+}
+
+.content {
+        display: flex;
+        flex: 1;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+}
