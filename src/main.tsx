@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { PREFIX } from './helpers/API.ts';
 import './index.css';
 
+import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { RequiredAuth } from './helpers/RequiredAuth.tsx';
 import { AuthLayout } from './layout/Auth/AuthLayout.tsx';
@@ -13,6 +14,7 @@ import { Error } from './pages/Error/Error';
 import { Login } from './pages/Login/Login.tsx';
 import { Product } from './pages/Product/Product.tsx';
 import { Register } from './pages/Register/Register.tsx';
+import { store } from './store/store.ts';
 
 const Menu = lazy(() => import('./pages/Menu/Menu'));
 
@@ -52,10 +54,6 @@ const router = createBrowserRouter([
                                         return { product: response.data };
                                 },
                         },
-                        {
-                                path: '*',
-                                element: <Error />,
-                        },
                 ],
         },
         {
@@ -72,10 +70,16 @@ const router = createBrowserRouter([
                         },
                 ],
         },
+        {
+                path: '*',
+                element: <Error />,
+        },
 ]);
 
 createRoot(document.getElementById('root')!).render(
         <StrictMode>
-                <RouterProvider router={router} />
+                <Provider store={store}>
+                        <RouterProvider router={router} />
+                </Provider>
         </StrictMode>
 );

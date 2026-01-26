@@ -1,14 +1,19 @@
 import { type ReactNode } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { userActions } from '../../store/user.slice';
 
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
 import Button from '../../components/Button/Button';
 import styles from './styles.module.css';
 
 export function Layout(): ReactNode {
+        const dispatch = useDispatch();
         const navigate = useNavigate();
+        const { userLogout } = userActions;
         const logout = () => {
-                localStorage.removeItem('access_token');
+                dispatch(userLogout());
+                // localStorage.removeItem('access_token');
                 navigate('/auth/login');
         };
 
