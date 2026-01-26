@@ -1,25 +1,31 @@
-import axios, { AxiosError } from 'axios';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import Title from '../../components/Title/Title';
-import { PREFIX } from '../../helpers/API';
-import type { LoginResponse } from '../../interfaces/auth.interface';
-import type { AppDispatch } from '../../store/store';
-import { userActions } from '../../store/user.slice';
+import type { AppDispatch, RootState } from '../../store/store';
+import { login, userActions } from '../../store/user.slice';
 import styles from './styles.module.css';
 
 export function Login() {
         const dispatch = useDispatch<AppDispatch>();
-        const [error, setError] = useState<string | null>();
+        // const [error, setError] = useState<string | null>();
+        const { accessToken, loginErrorMessage } = useSelector((store: RootState) => store.user);
+
         const navigate = useNavigate();
-        const { addAccessToken } = userActions;
+
+        useEffect(() => {
+                if (accessToken) {
+                        navigate('/');
+                }
+        }, [accessToken]);
+
         const handleLogin = async (e: React.FormEvent<HTMLFormElement>): void => {
                 e.preventDefault();
-                setError(null);
+                // setError(null);
+                dispatch(userActions.clearErrorMessage());
                 const formData = new FormData(e.currentTarget);
                 const email = formData.get('email') as string;
                 const password = formData.get('pass') as string;
@@ -28,22 +34,23 @@ export function Login() {
         };
 
         const sendLogin = async (email: string, password: string): void => {
-                try {
-                        const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
-                                email,
-                                password,
-                        });
-                        console.log('data', data);
-                        // localStorage.setItem('access_token', data.access_token);
-                        dispatch(addAccessToken(data.access_token));
-                        userActions;
-                        navigate('/');
-                } catch (e) {
-                        if (e instanceof AxiosError) {
-                                console.log(e.response?.data.message);
-                                setError(e.response?.data.message);
-                        }
-                }
+                dispatch(login({ email, password }));
+                // try {
+                //         const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
+                //                 email,
+                //                 password,
+                //         });
+                //         console.log('data', data);
+                //         // localStorage.setItem('access_token', data.access_token);
+                //         dispatch(addAccessToken(data.access_token));
+                //         userActions;
+                //         navigate('/');
+                // } catch (e) {
+                //         if (e instanceof AxiosError) {
+                //                 console.log(e.response?.data.message);
+                //                 setError(e.response?.data.message);
+                //         }
+                // }
         };
         return (
                 <div className={styles['login-page']}>
@@ -69,7 +76,9 @@ export function Login() {
                                                 placeholder='Пароль'
                                         />
                                 </div>
-                                {error && <div className={styles['error']}>{error}</div>}
+                                {loginErrorMessage && (
+                                        <div className={styles['error']}>{loginErrorMessage}</div>
+                                )}
                                 <div className={styles['button-wrapper']}>
                                         <Button type='submit' size='big'>
                                                 Вход
