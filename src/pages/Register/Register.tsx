@@ -1,36 +1,41 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import Title from '../../components/Title/Title';
-import type { AppDispatch } from '../../store/store';
-import { login, userActions } from '../../store/user.slice';
+import type { AppDispatch, RootState } from '../../store/store';
+import { register, userActions } from '../../store/user.slice';
 import styles from './styles.module.css';
 
 export function Register() {
         const dispatch = useDispatch<AppDispatch>();
         const navigate = useNavigate();
+        const { accessToken, registerErrorMessage } = useSelector((store: RootState) => store.user);
 
-        const handleRegistr = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        useEffect(() => {
+                if (accessToken) {
+                        navigate('/');
+                }
+        }, [accessToken, navigate]);
+
+        const submit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
                 e.preventDefault();
+
                 dispatch(userActions.clearErrorMessage());
                 const formData = new FormData(e.currentTarget);
                 const email = formData.get('email') as string;
                 const password = formData.get('pass') as string;
+                const name = formData.get('name') as string;
 
-                await sendLogin(email, password);
+                dispatch(register({ email, password, name }));
         };
 
-        const sendLogin = (email: string, password: string): void => {
-                dispatch(login({ email, password }));
-                navigate('/');
-        };
         return (
-                <div className={styles['login-page']}>
+                <div className={styles['register-page']}>
                         <Title>Регистрация</Title>
-                        <form className={styles['form']} onSubmit={handleRegistr}>
+                        <form className={styles['form']} onSubmit={submit}>
                                 <div className={styles['form-field']}>
                                         <Label htmlFor='email'>Ваш email</Label>
                                         <Input
@@ -63,6 +68,12 @@ export function Register() {
                                                 placeholder='Имя'
                                         />
                                 </div>
+
+                                {registerErrorMessage && (
+                                        <div className={styles['error']}>
+                                                {registerErrorMessage}
+                                        </div>
+                                )}
 
                                 <div className={styles['button-wrapper']}>
                                         <Button type='submit' size='big'>

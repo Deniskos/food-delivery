@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import Button from '../../components/Button/Button';
@@ -12,10 +12,14 @@ import styles from './styles.module.css';
 export function Login() {
         const dispatch = useDispatch<AppDispatch>();
         // const [error, setError] = useState<string | null>();
-        const { loginErrorMessage } = useSelector((store: RootState) => store.user);
+        const { loginErrorMessage, accessToken } = useSelector((store: RootState) => store.user);
         const navigate = useNavigate();
 
-        // const navigate = useNavigate();
+        useEffect(() => {
+                if (accessToken) {
+                        navigate('/');
+                }
+        }, [accessToken, navigate]);
 
         // useEffect(() => {
         //         dispatch(profile());
