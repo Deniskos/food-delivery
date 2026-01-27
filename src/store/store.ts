@@ -6,10 +6,17 @@ export const store = configureStore({
         reducer: {
                 user: userSlice,
         },
+        devTools: true,
 });
 
 store.subscribe(() => {
-        safeState({ access_token: store.getState().user.accessToken }, JWT_PERSISTENT_STATE);
+        safeState(
+                {
+                        access_token: store.getState().user.accessToken,
+                        // profile: store.getState().user.profile,
+                },
+                JWT_PERSISTENT_STATE
+        );
 });
 
 export type RootState = ReturnType<typeof store.getState>;

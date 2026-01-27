@@ -3,23 +3,41 @@ import { loadState } from './storage';
 import axios, { AxiosError } from 'axios';
 import type { LoginResponse } from '../interfaces/auth.interface';
 import { PREFIX } from '../helpers/API';
+import type { Profile } from '../interfaces/user.interface';
+import type { RootState } from './store';
 
 export const JWT_PERSISTENT_STATE = 'userData';
 
 export interface UserPersistentState {
         access_token: string | null;
+        profile: Profile | undefined;
 }
 
 export interface UserState {
         accessToken: string | null;
         loginErrorMessage?: string;
-        loginState: null | 'rejected';
+        profile?: Profile;
+        // loginState: null | 'rejected';
 }
 
 const initialState: UserState = {
         accessToken: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.access_token ?? null,
-        loginState: null,
 };
+
+export const getProfile = createAsyncThunk<Profile, void, { state: RootState }>(
+        'user/getProfile',
+        async (_, thunkApi) => {
+                const accessToken = thunkApi.getState().user.accessToken;
+                const response = await axios.get<Profile>(`${PREFIX}/user/profile`, {
+                        headers: {
+                                Authorization: `Bearer ${accessToken}`,
+                                'Content-Type': 'application/json',
+                        },
+                });
+
+                return response.data;
+        }
+);
 
 export const login = createAsyncThunk(
         'user/login',
@@ -51,6 +69,7 @@ export const userSlice = createSlice({
                 },
                 userLogout: state => {
                         state.accessToken = null;
+                        state.profile = undefined;
                 },
         },
         extraReducers: builder => {
@@ -62,7 +81,9 @@ export const userSlice = createSlice({
                 });
                 builder.addCase(login.rejected, (state, action) => {
                         state.loginErrorMessage = action?.error.message;
-                        state.loginState = 'rejected';
+                });
+                builder.addCase(getProfile.fulfilled, (state, action) => {
+                        state.profile = action.payload;
                 });
         },
 });

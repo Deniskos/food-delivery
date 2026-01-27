@@ -1,17 +1,23 @@
-import { type ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { userActions } from '../../store/user.slice';
+import { getProfile, userActions } from '../../store/user.slice';
 
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
-import type { AppDispatch } from '../../store/store';
+import type { AppDispatch, RootState } from '../../store/store';
 import styles from './styles.module.css';
 
 export function Layout(): ReactNode {
         const dispatch = useDispatch<AppDispatch>();
+        const { email, name } = useSelector((state: RootState) => state.user.profile) || {};
         const navigate = useNavigate();
         const { userLogout } = userActions;
+
+        useEffect(() => {
+                dispatch(getProfile());
+        }, [dispatch]);
+
         const logout = () => {
                 dispatch(userLogout());
                 // localStorage.removeItem('access_token');
@@ -29,10 +35,10 @@ export function Layout(): ReactNode {
                                                                 alt='Аватар пользователя'
                                                         />
                                                 </div>
-                                                <div className={styles.name}>Денис Кострыгин</div>
-                                                <div className={styles.email}>
-                                                        kostryginden@mail.ru
-                                                </div>
+                                                {name && <div className={styles.name}>{name}</div>}
+                                                {email && (
+                                                        <div className={styles.email}>{email}</div>
+                                                )}
                                         </div>
                                         <div className={styles.navigation}>
                                                 <NavLink

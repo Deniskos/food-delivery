@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router';
 import Button from '../../components/Button/Button';
@@ -12,17 +12,17 @@ import styles from './styles.module.css';
 export function Login() {
         const dispatch = useDispatch<AppDispatch>();
         // const [error, setError] = useState<string | null>();
-        const { accessToken, loginErrorMessage } = useSelector((store: RootState) => store.user);
-
+        const { loginErrorMessage } = useSelector((store: RootState) => store.user);
         const navigate = useNavigate();
 
-        useEffect(() => {
-                if (accessToken) {
-                        navigate('/');
-                }
-        }, [accessToken]);
+        // const navigate = useNavigate();
 
-        const handleLogin = async (e: React.FormEvent<HTMLFormElement>): void => {
+        // useEffect(() => {
+        //         dispatch(profile());
+        //         navigate('/');
+        // }, []);
+
+        const handleLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
                 e.preventDefault();
                 // setError(null);
                 dispatch(userActions.clearErrorMessage());
@@ -33,8 +33,9 @@ export function Login() {
                 await sendLogin(email, password);
         };
 
-        const sendLogin = async (email: string, password: string): void => {
+        const sendLogin = (email: string, password: string): void => {
                 dispatch(login({ email, password }));
+                navigate('/');
                 // try {
                 //         const { data } = await axios.post<LoginResponse>(`${PREFIX}/auth/login`, {
                 //                 email,
