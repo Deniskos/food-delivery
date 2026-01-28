@@ -1,0 +1,103 @@
+.link_wrapper {
+        display: block;
+}
+.card {
+        position: relative;
+        flex: 0 0 calc(50% - 20px); /* 50% минус половина gap */
+        opacity: 1;
+        border-radius: 18px;
+        background-color: var(--white-color);
+        box-shadow: 18.21px 18.21px 36.43px 0px rgba(211, 209, 216, 0.25);
+}
+
+.cartButton,
+.price {
+        position: absolute;
+        top: 10px;
+        height: 34px;
+}
+
+.price {
+        display: flex;
+        align-items: center;
+        left: 20px;
+        padding: 5px 15px;
+        background-color: var(--white-color);
+        border-radius: 120px;
+        color: var(--text-color);
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 100%;
+        letter-spacing: 0%;
+}
+
+.rub {
+        color: var(--primary-color);
+}
+
+.cartButton {
+        right: 20px;
+        width: 34px;
+        height: 34px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+}
+
+.cartButton img {
+        width: 16px;
+}
+
+.rating {
+        position: absolute;
+        top: -35px;
+        left: 10px;
+        width: 51px;
+        height: 29px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Open Sans;
+        font-weight: 600;
+        font-size: 12.14px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        opacity: 1;
+        border-radius: 136px;
+        background-color: var(--white-color);
+        box-shadow: 0px 6.07px 24.29px 0px rgba(254, 114, 76, 0.2);
+}
+
+.rating img {
+        width: 10px;
+        margin-left: 4px;
+}
+
+.dish-name {
+        margin-top: 20px;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: var(--text-color);
+}
+
+.description {
+        margin-top: 8px;
+        font-weight: 400;
+        font-size: 14.57px;
+        line-height: 100%;
+        color: var(--text-secondary-color);
+}
+
+.dish-img-wrapper {
+        display: flex;
+        border-radius: 18px;
+        overflow: hidden;
+}
+
+.text-wrapper {
+        position: relative;
+        padding: 0 10px 20px;
+}

@@ -1,0 +1,19 @@
+.search {
+        display: flex;
+        width: 266px;
+        height: 51px;
+        padding: 0 15px 0 40px;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        font-size: 16px;
+        color: var(--input-text-color);
+        background-image: url(./search.svg);
+        background-size: 14px 14px;
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        font-family: Open Sans;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: 0%;
+}

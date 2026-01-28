@@ -1,7 +1,12 @@
-.root {
+.layout {
         height: 100vh;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1024px;
+        min-width: 768px;
         display: flex;
         flex-direction: row;
+        background-color: var(--white-color);
 }
 
 .sidebar {
@@ -15,6 +20,8 @@
 }
 
 .main {
+        width: calc(100% - 250px);
+        padding: 40px 60px;
 }
 
 .sidebarTop {
@@ -26,12 +33,10 @@
 .avatar {
         width: 90px;
         height: 90px;
+        overflow: hidden;
         border-radius: 50px;
-        background-image: url(./ava.png);
-        background-repeat: no-repeat;
-        background-size: 300%;
-        background-position: -90px -32px;
         background-color: #ffc529;
+        filter: drop-shadow(0 8px 40px rgba(255, 197, 41, 0.25));
 }
 .name {
         margin-top: 15px;
@@ -52,6 +57,11 @@
         padding-left: 35px;
         color: var(--text-color);
 }
+.link:hover,
+.active {
+        color: var(--primary-hover-color);
+}
+
 .menuLink {
         background-image: url(./menu-icon.svg);
         background-repeat: no-repeat;

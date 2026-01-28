@@ -1,0 +1,13 @@
+.header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+}
+
+.products {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-top: 30px;
+}
