@@ -11,6 +11,7 @@ import styles from './styles.module.css';
 export function Layout(): ReactNode {
         const dispatch = useDispatch<AppDispatch>();
         const { email, name } = useSelector((state: RootState) => state.user.profile) || {};
+        const { totalProducts } = useSelector((state: RootState) => state.card);
         const navigate = useNavigate();
         const { userLogout } = userActions;
 
@@ -60,7 +61,9 @@ export function Layout(): ReactNode {
                                                         to='/cart'
                                                 >
                                                         Корзина
-                                                        <span className={styles.cartCount}>2</span>
+                                                        <span className={styles.cartCount}>
+                                                                {totalProducts}
+                                                        </span>
                                                 </NavLink>
                                         </div>
                                 </div>

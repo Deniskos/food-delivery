@@ -1,3 +1,6 @@
+.link_wrapper {
+        display: block;
+}
 .card {
         position: relative;
         flex: 0 0 calc(50% - 20px); /* 50% минус половина gap */
