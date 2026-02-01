@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import Search from '../../components/Search/Search';
 import Title from '../../components/Title/Title';
 import { PREFIX } from '../../helpers/API';
@@ -10,17 +10,27 @@ import styles from './styles.module.css';
 function Menu() {
         const [products, setProducts] = useState<Product[]>([]);
         const [isLoading, setIsLoading] = useState<boolean>(false);
-        const [error, setError] = useState<string | undefined>(undefined);
+        const [error, setError] = useState<string | undefined>();
+        const [filter, setFilter] = useState<string>();
 
-        const getMenu = async () => {
+        console.log('filter', filter);
+
+        useEffect(() => {
+                if (filter && filter.length > 2) {
+                        getMenu(filter);
+                        return;
+                }
+                getMenu();
+        }, [filter]);
+
+        const getMenu = async (name?: string) => {
                 try {
                         setIsLoading(true);
-                        // await new Promise<void>(resolve => {
-                        //         setTimeout(() => {
-                        //                 resolve();
-                        //         }, 2000);
-                        // });
-                        const { data } = await axios.get<Product[]>(`${PREFIX}/products`);
+                        const { data } = await axios.get<Product[]>(`${PREFIX}/products`, {
+                                params: {
+                                        name,
+                                },
+                        });
                         setProducts(data);
                         setIsLoading(false);
                 } catch (e) {
@@ -33,20 +43,34 @@ function Menu() {
                 }
         };
 
-        useEffect(() => {
-                getMenu();
-        }, []);
+        const changeFilter = (e: ChangeEvent<HTMLInputElement>) => {
+                const searchString = e.target.value;
+                if (searchString.length > 2 || searchString.length === 0) {
+                        setFilter(searchString);
+                }
+        };
 
         return (
                 <>
                         <div className={styles.header}>
                                 <Title>Меню</Title>
-                                <Search placeholder='Введите блюдо или состав' />
+                                <Search
+                                        placeholder='Введите блюдо или состав'
+                                        onChange={changeFilter}
+                                />
                         </div>
                         <div className={styles['products']}>
                                 {error && error}
                                 {isLoading && 'Загрузка меню...'}
-                                {!isLoading && <MenuLIst products={products} />}
+                                {!isLoading && products.length > 0 && (
+                                        <MenuLIst products={products} />
+                                )}
+                                {!isLoading && products.length === 0 && (
+                                        <div>
+                                                Блюд по данному запросу не найдено, попробуйте
+                                                изменить запрос.
+                                        </div>
+                                )}
                         </div>
                 </>
         );
