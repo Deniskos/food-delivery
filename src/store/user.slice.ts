@@ -109,7 +109,6 @@ export const userSlice = createSlice({
                         state.profile = action.payload;
                 });
                 builder.addCase(register.fulfilled, (state, action) => {
-                        console.log('action', action);
                         if (!action.payload) {
                                 return;
                         }
