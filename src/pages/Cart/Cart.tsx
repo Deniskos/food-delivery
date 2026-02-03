@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
+import { CartItem } from '../../components/CartItem/CartItem';
 import Input from '../../components/Input/Input';
 import Title from '../../components/Title/Title';
 import type { RootState } from '../../store/store';
-import { CartItem } from './CartItem/CartItem';
 import styles from './styles.module.css';
 
 export function Cart() {

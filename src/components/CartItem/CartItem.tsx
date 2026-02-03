@@ -2,10 +2,10 @@ import axios from 'axios';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { PREFIX } from '../../../helpers/API';
-import type { Product } from '../../../interfaces/product.interface';
-import { addProduct, decrementProduct, deleteProduct } from '../../../store/cart.slice';
-import styles from '../styles.module.css';
+import { PREFIX } from '../../helpers/API';
+import type { Product } from '../../interfaces/product.interface';
+import { addProduct, decrementProduct, deleteProduct } from '../../store/cart.slice';
+import styles from './styles.module.css';
 
 interface CartItemProps {
         id: number;
