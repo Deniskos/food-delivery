@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, type PayloadAction } from '@reduxjs/toolkit';
 
 type CartItem = {
         id: number;
@@ -35,8 +35,29 @@ export const cartSlice = createSlice({
                                 return item;
                         });
                 },
+                decrementProduct: (state, action: PayloadAction<number>) => {
+                        const { payload } = action;
+                        state.totalProducts -= 1; // при каждом удалении товара уменьшаем totalProducts на 1
+                        state.products = state.products.map((item, index) => {
+                                if (item.id === payload) {
+                                        return { ...item, count: item.count - 1 };
+                                }
+                                return item;
+                        });
+                },
+                deleteProduct: (state, action: PayloadAction<number>) => {
+                        const { payload } = action;
+                        state.products = state.products.filter(item => {
+                                return item.id !== payload;
+                        });
+                        const totalProducts = state.products.reduce(
+                                (acc, product) => acc + product.count,
+                                0
+                        );
+                        state.totalProducts = totalProducts;
+                },
         },
 });
 
 export default cartSlice.reducer;
-export const cardActions = cartSlice.actions;
+export const { addProduct, decrementProduct, deleteProduct } = cartSlice.actions;

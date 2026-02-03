@@ -1,84 +1,21 @@
+import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import Title from '../../components/Title/Title';
+import type { RootState } from '../../store/store';
+import { CartItem } from './CartItem/CartItem';
 import styles from './styles.module.css';
 
 export function Cart() {
+        const cartItems = useSelector((store: RootState) => store.card.products);
         return (
                 <div className={styles['cart-root']}>
                         <Title>Корзина</Title>
 
                         <ul className={styles['cart-list']}>
-                                <li className={styles['cart-item']}>
-                                        <div className={styles['product-item-info']}>
-                                                <div className={styles['image-wrapper']}>
-                                                        <img
-                                                                className={styles['product-image']}
-                                                                src='./food3.png'
-                                                                about='Изображение блюда'
-                                                        />
-                                                </div>
-                                                <div className={styles['product-info-wrapper']}>
-                                                        <span className={styles['product-name']}>
-                                                                Аццки острая
-                                                        </span>
-                                                        <span className={styles['price']}>
-                                                                320
-                                                                <span
-                                                                        className={
-                                                                                styles[
-                                                                                        'price-simbol'
-                                                                                ]
-                                                                        }
-                                                                >
-                                                                        {' '}
-                                                                        &#8381;
-                                                                </span>
-                                                        </span>
-                                                </div>
-                                        </div>
-                                        <div className={styles['product-item-controls']}>
-                                                <span className={styles['decrement']}>-</span>
-                                                <span className={styles['product-count']}>01</span>
-                                                <span className={styles['increment']}>+</span>
-                                                <span className={styles['delete']}>X</span>
-                                        </div>
-                                </li>
-                                <li className={styles['cart-item']}>
-                                        <div className={styles['product-item-info']}>
-                                                <div className={styles['image-wrapper']}>
-                                                        <img
-                                                                className={styles['product-image']}
-                                                                src='./food3.png'
-                                                                about='Изображение блюда'
-                                                        />
-                                                </div>
-                                                <div className={styles['product-info-wrapper']}>
-                                                        <span className={styles['product-name']}>
-                                                                Аццки острая
-                                                        </span>
-                                                        <span className={styles['price']}>
-                                                                320
-                                                                <span
-                                                                        className={
-                                                                                styles[
-                                                                                        'price-simbol'
-                                                                                ]
-                                                                        }
-                                                                >
-                                                                        {' '}
-                                                                        &#8381;
-                                                                </span>
-                                                        </span>
-                                                </div>
-                                        </div>
-                                        <div className={styles['product-item-controls']}>
-                                                <span className={styles['decrement']}>-</span>
-                                                <span className={styles['product-count']}>01</span>
-                                                <span className={styles['increment']}>+</span>
-                                                <span className={styles['delete']}>X</span>
-                                        </div>
-                                </li>
+                                {cartItems.map(item => (
+                                        <CartItem key={item.id} id={item.id} count={item.count} />
+                                ))}
                         </ul>
 
                         <div className={styles['promo-wrapper']}>

@@ -60,6 +60,16 @@
         align-items: center;
 }
 
+.button {
+        border: none;
+        background: none;
+        cursor: pointer;
+}
+
+.disabled {
+        opacity: 0.5;
+}
+
 .decrement,
 .increment {
         display: inline-flex;
@@ -70,7 +80,6 @@
         padding-bottom: 4px;
         font-size: 30px;
         border-radius: 17px;
-        cursor: pointer;
 }
 
 .decrement {
@@ -90,7 +99,7 @@
 .delete {
         margin: 0 15px 0 20px;
         color: rgba(254, 114, 76, 1);
-        cursor: pointer;
+        font-size: 16px;
 }
 
 .promo-wrapper {

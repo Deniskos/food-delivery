@@ -13,8 +13,6 @@ function Menu() {
         const [error, setError] = useState<string | undefined>();
         const [filter, setFilter] = useState<string>();
 
-        console.log('filter', filter);
-
         useEffect(() => {
                 if (filter && filter.length > 2) {
                         getMenu(filter);
