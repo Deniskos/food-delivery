@@ -1,33 +1,17 @@
-import axios from 'axios';
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { PREFIX } from '../../helpers/API';
 import type { Product } from '../../interfaces/product.interface';
 import { addProduct, decrementProduct, deleteProduct } from '../../store/cart.slice';
 import styles from './styles.module.css';
 
 interface CartItemProps {
-        id: number;
+        product: Product;
         count: number;
 }
 
-export const CartItem = ({ id, count }: CartItemProps) => {
-        const [productItem, setProductItem] = useState<Product>();
+export const CartItem = ({ product, count }: CartItemProps) => {
         const dispatch = useDispatch();
-
-        useEffect(() => {
-                getItem();
-        }, [id]);
-
-        const getItem = async () => {
-                try {
-                        const { data } = await axios.get<Product>(`${PREFIX}/products/${id}`);
-                        setProductItem(data);
-                } catch (e) {
-                        console.error(e);
-                }
-        };
+        const { id } = product;
 
         const addToCart = () => {
                 dispatch(addProduct(id));
@@ -46,16 +30,16 @@ export const CartItem = ({ id, count }: CartItemProps) => {
                                 <div className={styles['image-wrapper']}>
                                         <img
                                                 className={styles['product-image']}
-                                                src={`${productItem?.image}`}
+                                                src={`${product?.image}`}
                                                 about='Изображение блюда'
                                         />
                                 </div>
                                 <div className={styles['product-info-wrapper']}>
                                         <span className={styles['product-name']}>
-                                                {productItem?.name}
+                                                {product?.name}
                                         </span>
                                         <span className={styles['price']}>
-                                                {productItem?.price}
+                                                {product?.price}
                                                 <span className={styles['price-simbol']}>
                                                         {' '}
                                                         &#8381;
