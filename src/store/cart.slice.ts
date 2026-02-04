@@ -2,7 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { loadState } from './storage';
 import { PERSISTENT_STATE } from './user.slice';
 
-type CartItem = {
+export type CartItem = {
         id: number;
         count: number;
 };
