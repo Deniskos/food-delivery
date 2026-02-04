@@ -10,7 +10,7 @@ import styles from './styles.module.css';
 
 export function Cart() {
         const cartItems = useSelector((store: RootState) => store.card.products);
-        const { products, loading, error } = useCartProducts(cartItems);
+        const { products, error } = useCartProducts(cartItems);
 
         // Вычисляем итоговую стоимость товаров в корзине
         const totalProductCost = products.reduce((sum, product) => {
@@ -20,10 +20,6 @@ export function Cart() {
 
         const finalPrice = totalProductCost ? totalProductCost + DELIVERY_COST : 0;
 
-        if (loading) {
-                return <div>Загрузка корзины...</div>;
-        }
-
         if (error) {
                 return <div className={styles.error}>{error}</div>;
         }
@@ -32,13 +28,14 @@ export function Cart() {
                         <Title>Корзина</Title>
 
                         <ul className={styles['cart-list']}>
-                                {products.map(item => {
+                                {products.map(product => {
                                         const count =
-                                                cartItems.find(i => i.id === item.id)?.count ?? 0;
+                                                cartItems.find(i => i.id === product.id)?.count ??
+                                                0;
                                         return (
                                                 <CartItem
-                                                        key={item.id}
-                                                        product={item}
+                                                        key={product.id}
+                                                        product={product}
                                                         count={count}
                                                 />
                                         );
