@@ -6,7 +6,7 @@ import { PREFIX } from '../helpers/API';
 import type { Profile } from '../interfaces/user.interface';
 import type { RootState } from './store';
 
-export const JWT_PERSISTENT_STATE = 'userData';
+export const PERSISTENT_STATE = 'userData';
 
 export interface UserPersistentState {
         access_token: string | null;
@@ -22,7 +22,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-        accessToken: loadState<UserPersistentState>(JWT_PERSISTENT_STATE)?.access_token ?? null,
+        accessToken: loadState<UserPersistentState>(PERSISTENT_STATE)?.access_token ?? null,
 };
 
 export const getProfile = createAsyncThunk<Profile, void, { state: RootState }>(

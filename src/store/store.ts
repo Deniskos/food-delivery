@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice, { JWT_PERSISTENT_STATE } from './user.slice';
+import userSlice, { PERSISTENT_STATE } from './user.slice';
 import cartSlice from './cart.slice';
 import { safeState } from './storage';
 
@@ -14,9 +14,11 @@ store.subscribe(() => {
         safeState(
                 {
                         access_token: store.getState().user.accessToken,
+                        products: store.getState().card.products,
+                        totalProducts: store.getState().card.totalProducts,
                         // profile: store.getState().user.profile,
                 },
-                JWT_PERSISTENT_STATE
+                PERSISTENT_STATE
         );
 });
 
