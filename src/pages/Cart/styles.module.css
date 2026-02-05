@@ -41,6 +41,14 @@
 .total-list__item-cost {
 }
 
+.total-count {
+        font-family: Open Sans;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 100%;
+        color: rgba(190, 190, 190, 1);
+}
+
 .rubl {
         font-family: Open Sans;
         font-weight: 400;
