@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 export function Layout(): ReactNode {
         const dispatch = useDispatch<AppDispatch>();
         const { email, name } = useSelector((state: RootState) => state.user.profile) || {};
-        const { totalProducts } = useSelector((state: RootState) => state.card);
+        const { totalProducts } = useSelector((state: RootState) => state.cart);
         const navigate = useNavigate();
         const { userLogout } = userActions;
 

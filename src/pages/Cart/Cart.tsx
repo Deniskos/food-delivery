@@ -1,44 +1,18 @@
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
 import Button from '../../components/Button/Button';
 import { CartItem } from '../../components/CartItem/CartItem';
 import Input from '../../components/Input/Input';
 import Title from '../../components/Title/Title';
-import { PREFIX } from '../../helpers/API';
 import { useCartProducts } from '../../hooks/useCartProducts';
-import { deleteCart } from '../../store/cart.slice';
+import { useOrder } from '../../hooks/useOrder';
 import { type RootState } from '../../store/store';
 import { DELIVERY_COST } from './constants';
 import styles from './styles.module.css';
 
 export function Cart() {
-        const cartItems = useSelector((store: RootState) => store.card.products);
-        const accessToken = useSelector((store: RootState) => store.user.accessToken);
+        const cartItems = useSelector((store: RootState) => store.cart.products);
         const { products, error } = useCartProducts(cartItems);
-        const navigate = useNavigate();
-        const dispatch = useDispatch();
-
-        const checkout = async () => {
-                try {
-                        await axios.post(
-                                `${PREFIX}/order/`,
-                                {
-                                        products: cartItems,
-                                },
-                                {
-                                        headers: {
-                                                Authorization: `Bearer ${accessToken}`,
-                                                'Content-Type': 'application/json',
-                                        },
-                                }
-                        );
-                        dispatch(deleteCart());
-                        navigate('/success');
-                } catch (error) {
-                        console.error(error);
-                }
-        };
+        const { createOrder } = useOrder();
 
         // Вычисляем итоговую стоимость товаров в корзине
         const totalProductCost = products.reduce((sum, product) => {
@@ -112,7 +86,7 @@ export function Cart() {
                         </ul>
 
                         <div className={styles['button-wrapper']}>
-                                <Button type='button' size='big' onClick={checkout}>
+                                <Button type='button' size='big' onClick={() => createOrder()}>
                                         Оформить
                                 </Button>
                         </div>

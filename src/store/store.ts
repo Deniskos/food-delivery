@@ -6,7 +6,7 @@ import { safeState } from './storage';
 export const store = configureStore({
         reducer: {
                 user: userSlice,
-                card: cartSlice,
+                cart: cartSlice,
         },
 });
 
@@ -14,8 +14,8 @@ store.subscribe(() => {
         safeState(
                 {
                         access_token: store.getState().user.accessToken,
-                        products: store.getState().card.products,
-                        totalProducts: store.getState().card.totalProducts,
+                        products: store.getState().cart.products,
+                        totalProducts: store.getState().cart.totalProducts,
                         // profile: store.getState().user.profile,
                 },
                 PERSISTENT_STATE
