@@ -1,3 +1,95 @@
+import { useSelector } from 'react-redux';
+import Button from '../../components/Button/Button';
+import { CartItem } from '../../components/CartItem/CartItem';
+import Input from '../../components/Input/Input';
+import Title from '../../components/Title/Title';
+import { useCartProducts } from '../../hooks/useCartProducts';
+import { useOrder } from '../../hooks/useOrder';
+import { type RootState } from '../../store/store';
+import { DELIVERY_COST } from './constants';
+import styles from './styles.module.css';
+
 export function Cart() {
-	return <>Cart</>;
+        const cartItems = useSelector((store: RootState) => store.cart.products);
+        const { products, error } = useCartProducts(cartItems);
+        const { createOrder } = useOrder();
+
+        // Вычисляем итоговую стоимость товаров в корзине
+        const totalProductCost = products.reduce((sum, product) => {
+                const cartItem = cartItems.find(item => item.id === product.id);
+                return sum + product.price * (cartItem?.count || 0);
+        }, 0);
+
+        const totalProductsCount = cartItems.reduce((sum, item) => sum + item.count, 0);
+
+        const finalPrice = totalProductCost ? totalProductCost + DELIVERY_COST : 0;
+
+        if (error) {
+                return <div className={styles.error}>{error}</div>;
+        }
+        return (
+                <div className={styles['cart-root']}>
+                        <Title>Корзина</Title>
+
+                        <ul className={styles['cart-list']}>
+                                {products.map(product => {
+                                        const count =
+                                                cartItems.find(i => i.id === product.id)?.count ??
+                                                0;
+                                        return (
+                                                <CartItem
+                                                        key={product.id}
+                                                        product={product}
+                                                        count={count}
+                                                />
+                                        );
+                                })}
+                        </ul>
+
+                        <div className={styles['promo-wrapper']}>
+                                <Input kind='promo' placeholder='Промокод' />
+                                <Button className={styles['promo-button']}>Применить</Button>
+                        </div>
+
+                        <ul className={styles['total-list']}>
+                                <li className={styles['total-list__item']}>
+                                        <span className={styles['total-list__item-title']}>
+                                                Итог
+                                        </span>
+                                        <span className={styles['total-list__item-cost']}>
+                                                {totalProductCost}&nbsp;
+                                                <span className={styles['rubl']}>&#8381;</span>
+                                        </span>
+                                </li>
+                                <li className={styles['total-list__item']}>
+                                        <span className={styles['total-list__item-title']}>
+                                                Доставка
+                                        </span>
+                                        <span className={styles['total-list__item-cost']}>
+                                                {totalProductCost && DELIVERY_COST}&nbsp;
+                                                <span className={styles['rubl']}>&#8381;</span>
+                                        </span>
+                                </li>
+
+                                <li className={styles['total-list__item']}>
+                                        <span className={styles['total-list__item-title']}>
+                                                Итого{' '}
+                                                <span className={styles['total-count']}>
+                                                        ({totalProductsCount})
+                                                </span>
+                                        </span>
+                                        <span className={styles['total-list__item-cost']}>
+                                                {finalPrice}&nbsp;
+                                                <span className={styles['rubl']}>&#8381;</span>
+                                        </span>
+                                </li>
+                        </ul>
+
+                        <div className={styles['button-wrapper']}>
+                                <Button type='button' size='big' onClick={() => createOrder()}>
+                                        Оформить
+                                </Button>
+                        </div>
+                </div>
+        );
 }

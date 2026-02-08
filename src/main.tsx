@@ -14,6 +14,7 @@ import { Error } from './pages/Error/Error';
 import { Login } from './pages/Login/Login.tsx';
 import { Product } from './pages/Product/Product.tsx';
 import { Register } from './pages/Register/Register.tsx';
+import { Success } from './pages/Success/Success.tsx';
 import { store } from './store/store.ts';
 
 const Menu = lazy(() => import('./pages/Menu/Menu'));
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
                                         );
                                         return { product: response.data };
                                 },
+                        },
+                        {
+                                path: '/success',
+                                element: <Success />,
                         },
                 ],
         },

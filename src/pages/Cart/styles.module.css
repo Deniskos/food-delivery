@@ -1,0 +1,59 @@
+.cart-root {
+        display: block;
+        max-width: 525px;
+}
+
+.cart-list {
+        margin-top: 40px;
+}
+
+.promo-wrapper {
+        position: relative;
+}
+
+.promo-button {
+        position: absolute;
+        top: 8px;
+        right: 17px;
+}
+
+.button-wrapper {
+        margin-top: 70px;
+        display: flex;
+        justify-content: center;
+}
+
+.total-list {
+        display: block;
+        margin-top: 10px;
+}
+
+.total-list__item {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 15px 5px 0;
+        border-bottom: 1px solid rgba(241, 242, 243, 1);
+}
+
+.total-list__item-title {
+}
+
+.total-list__item-cost {
+}
+
+.total-count {
+        font-family: Open Sans;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 100%;
+        color: rgba(190, 190, 190, 1);
+}
+
+.rubl {
+        font-family: Open Sans;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: rgba(151, 150, 161, 1);
+}

@@ -1,6 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { loadState } from './storage';
+import { PERSISTENT_STATE } from './user.slice';
 
-type CartItem = {
+export type CartItem = {
         id: number;
         count: number;
 };
@@ -11,8 +13,8 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-        products: [],
-        totalProducts: 0,
+        products: loadState<CartState>(PERSISTENT_STATE)?.products ?? [],
+        totalProducts: loadState<CartState>(PERSISTENT_STATE)?.totalProducts ?? 0,
 };
 
 export const cartSlice = createSlice({
@@ -35,8 +37,33 @@ export const cartSlice = createSlice({
                                 return item;
                         });
                 },
+                decrementProduct: (state, action: PayloadAction<number>) => {
+                        const { payload } = action;
+                        state.totalProducts -= 1; // при каждом удалении товара уменьшаем totalProducts на 1
+                        state.products = state.products.map(item => {
+                                if (item.id === payload) {
+                                        return { ...item, count: item.count - 1 };
+                                }
+                                return item;
+                        });
+                },
+                deleteProduct: (state, action: PayloadAction<number>) => {
+                        const { payload } = action;
+                        state.products = state.products.filter(item => {
+                                return item.id !== payload;
+                        });
+                        const totalProducts = state.products.reduce(
+                                (acc, product) => acc + product.count,
+                                0
+                        );
+                        state.totalProducts = totalProducts;
+                },
+                clearCart: state => {
+                        state.products = [];
+                        state.totalProducts = 0;
+                },
         },
 });
 
 export default cartSlice.reducer;
-export const cardActions = cartSlice.actions;
+export const { addProduct, decrementProduct, deleteProduct, clearCart } = cartSlice.actions;

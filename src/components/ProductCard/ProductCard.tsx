@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { cardActions } from '../../store/cart.slice';
+import { addProduct } from '../../store/cart.slice';
 import type { AppDispatch } from '../../store/store';
 import type { ProductCardProps } from './ProductCard.props';
 import styles from './styles.module.css';
@@ -10,7 +10,7 @@ function ProductCard(props: ProductCardProps) {
         const dispatch = useDispatch<AppDispatch>();
 
         const addToCart = () => {
-                dispatch(cardActions.addProduct(props.id));
+                dispatch(addProduct(props.id));
         };
 
         return (
