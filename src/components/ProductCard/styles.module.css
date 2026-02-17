@@ -49,31 +49,6 @@
         width: 16px;
 }
 
-.rating {
-        position: absolute;
-        top: -35px;
-        left: 10px;
-        width: 51px;
-        height: 29px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Open Sans;
-        font-weight: 600;
-        font-size: 12.14px;
-        line-height: 100%;
-        letter-spacing: 0%;
-        opacity: 1;
-        border-radius: 136px;
-        background-color: var(--white-color);
-        box-shadow: 0px 6.07px 24.29px 0px rgba(254, 114, 76, 0.2);
-}
-
-.rating img {
-        width: 10px;
-        margin-left: 4px;
-}
-
 .dish-name {
         margin-top: 20px;
         font-weight: 600;

@@ -27,50 +27,72 @@ export function Layout(): ReactNode {
 
         return (
                 <div className={styles.layout}>
-                        <div className={styles.sidebar}>
-                                <div className={styles.sidebarTop}>
-                                        <div className={styles.profile}>
-                                                <div className={styles.avatar}>
-                                                        <img
-                                                                src='./ava.png'
-                                                                alt='Аватар пользователя'
-                                                        />
+                        <div className={styles['sidebar-wrapper']}>
+                                <div className={styles.sidebar}>
+                                        <div className={styles.sidebarTop}>
+                                                <div className={styles.profile}>
+                                                        <div className={styles.avatar}>
+                                                                <img
+                                                                        src='/ava.png'
+                                                                        alt='Аватар пользователя'
+                                                                />
+                                                        </div>
+                                                        {name && (
+                                                                <div className={styles.name}>
+                                                                        {name}
+                                                                </div>
+                                                        )}
+                                                        {email && (
+                                                                <div className={styles.email}>
+                                                                        {email}
+                                                                </div>
+                                                        )}
                                                 </div>
-                                                {name && <div className={styles.name}>{name}</div>}
-                                                {email && (
-                                                        <div className={styles.email}>{email}</div>
-                                                )}
+                                                <div className={styles.navigation}>
+                                                        <NavLink
+                                                                className={({ isActive }) =>
+                                                                        cn(
+                                                                                styles.link,
+                                                                                styles.menuLink,
+                                                                                {
+                                                                                        [styles.active]:
+                                                                                                isActive,
+                                                                                }
+                                                                        )
+                                                                }
+                                                                to='/'
+                                                        >
+                                                                Меню
+                                                        </NavLink>
+                                                        <NavLink
+                                                                className={({ isActive }) =>
+                                                                        cn(
+                                                                                styles.link,
+                                                                                styles.cartLink,
+                                                                                {
+                                                                                        [styles.active]:
+                                                                                                isActive,
+                                                                                }
+                                                                        )
+                                                                }
+                                                                to='/cart'
+                                                        >
+                                                                Корзина
+                                                                <span className={styles.cartCount}>
+                                                                        {totalProducts}
+                                                                </span>
+                                                        </NavLink>
+                                                </div>
                                         </div>
-                                        <div className={styles.navigation}>
-                                                <NavLink
-                                                        className={({ isActive }) =>
-                                                                cn(styles.link, styles.menuLink, {
-                                                                        [styles.active]: isActive,
-                                                                })
-                                                        }
-                                                        to='/'
+                                        <div className={styles.sidebarButton}>
+                                                <Button
+                                                        onClick={logout}
+                                                        size='small'
+                                                        className='exit'
                                                 >
-                                                        Меню
-                                                </NavLink>
-                                                <NavLink
-                                                        className={({ isActive }) =>
-                                                                cn(styles.link, styles.cartLink, {
-                                                                        [styles.active]: isActive,
-                                                                })
-                                                        }
-                                                        to='/cart'
-                                                >
-                                                        Корзина
-                                                        <span className={styles.cartCount}>
-                                                                {totalProducts}
-                                                        </span>
-                                                </NavLink>
+                                                        Выйти
+                                                </Button>
                                         </div>
-                                </div>
-                                <div className={styles.sidebarBottom}>
-                                        <Button onClick={logout} size='small' className='exit'>
-                                                Выйти
-                                        </Button>
                                 </div>
                         </div>
                         <div className={styles.main}>

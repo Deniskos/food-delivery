@@ -36,6 +36,15 @@
 .exit {
         padding-left: 45px;
         background-position: 10px center;
-        background-image: url(./exit.svg);
+        background-image: url('/exit.svg');
+        background-repeat: no-repeat;
+}
+
+.cart {
+        position: absolute;
+        right: 0;
+        padding-left: 45px;
+        background-position: 16px center;
+        background-image: url('/white_cart.svg');
         background-repeat: no-repeat;
 }
