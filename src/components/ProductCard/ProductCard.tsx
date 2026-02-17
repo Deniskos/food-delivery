@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../store/cart.slice';
 import type { AppDispatch } from '../../store/store';
+import Rating from '../Rating/Rating';
 import type { ProductCardProps } from './ProductCard.props';
 import styles from './styles.module.css';
 
@@ -31,11 +32,7 @@ function ProductCard(props: ProductCardProps) {
                                 <div className={styles['text-wrapper']}>
                                         <h3 className={styles['dish-name']}>{props.title}</h3>
                                         <p className={styles['description']}>{props.description}</p>
-
-                                        <div className={styles['rating']}>
-                                                {props.rating}
-                                                <img src='./star.svg' alt='Изображение звезды' />
-                                        </div>
+                                        <Rating rating={props.rating} position='absolute' />
                                 </div>
                         </Link>
                 </div>

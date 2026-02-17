@@ -1,0 +1,109 @@
+.product-root {
+        display: block;
+}
+
+.back-button {
+        display: inline-block;
+        width: 80px;
+        background-image: url(/arrow_back.svg);
+        background-position: 0 -6px;
+        background-size: cover;
+        background-repeat: no-repeat;
+}
+
+.header {
+        display: flex;
+        position: relative;
+}
+
+.product-card {
+        display: flex;
+        margin-top: 30px;
+        gap: 50px;
+}
+
+.product-card > div {
+        flex: 1 1 0;
+        min-width: 0;
+}
+
+.product-img {
+        max-width: 323px;
+        height: 248px;
+        border-radius: 10px;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+
+.product-info {
+        max-width: 200px;
+}
+
+.price-area {
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(241, 242, 243, 1);
+}
+
+.info-title {
+        font-family: Open Sans;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 100%;
+}
+
+.price {
+        font-family: Open Sans;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: right;
+}
+
+.rub {
+        font-family: Open Sans;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        color: rgba(151, 150, 161, 1);
+}
+
+.rating-area {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+}
+
+.compound-area {
+        margin-top: 20px;
+        color: var(--text-secondary-color);
+}
+
+.compound-title {
+        font-family: Open Sans;
+        font-weight: 600;
+        font-size: 14.57px;
+        line-height: 100%;
+}
+
+.compound-list {
+        margin-top: 12px;
+        list-style: none;
+        padding: 0;
+}
+
+.list-item {
+        position: relative;
+        padding-left: 15px;
+        font-weight: 400;
+}
+
+.list-item::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        top: 4px;
+        font-size: 12px;
+}
